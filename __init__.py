@@ -16,12 +16,12 @@ import requests
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('/var/www/catalog/catalog/client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/catalog/FlaskApp/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
 
 
 # Connect to Database and create database session
-engine = create_engine('postgresql+psycopg2://postgres@172.26.12.5/catalogapp')
+engine = create_engine('postgresql://postgres:pass@localhost/catalogapp')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -480,5 +480,4 @@ def disconnect():
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
-    app.debug = True
     app.run(host='0.0.0.0', port=5000)
